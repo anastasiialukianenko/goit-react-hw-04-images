@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import axios from 'axios';
 import api from './api';
 
 
@@ -9,12 +8,6 @@ import { ImageGallery } from './ImageGallery/ImageGallery'
 import { Error } from './Error/Error';
 import { GalleryApp, LoadMoreBtn } from "./Emotion.styled";
 import { Loader } from './Loader/Loader';
-
-
-// 'idel'
-// 'pending'
-// 'resolved'
-// 'rejected'
 
 
 export class App extends Component {
@@ -78,26 +71,25 @@ handleSubmit = (name) => {
     const { isLoading, isError, data, error, isSearchSubmitted,  } = this.state;
     const hasImages = data.length > 0;
 
-    {isError && <Error><p>{error}</p></Error>}
-
-
-    return <GalleryApp>
+     return (
+    <GalleryApp>
+      {isError && <Error><p>{error}</p></Error>}
+      
       <Searchbar onSubmit={this.handleSubmit} />
-
-      {isLoading ?
-        <Loader /> : 
-          <div>
-            {hasImages ? (
-              <ImageGallery imageData={data} />
-            ) : (
-              isSearchSubmitted &&<Error><p>There are no pictures with this search term.</p></Error> 
-            )}
-          </div>
-      }
+      {isLoading ? (
+        <Loader />
+      ) : hasImages ? (
+        <ImageGallery imageData={data} />
+      ) : (
+        isSearchSubmitted && <Error><p>There are no pictures with this search term.</p></Error>
+      )}
       {hasImages && <LoadMoreBtn type='button' onClick={this.handleLoadMore}>Load more</LoadMoreBtn>}
+    </GalleryApp>
+  );
 
 
-    </GalleryApp>;
+
+   
   }
 }
 

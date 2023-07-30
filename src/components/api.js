@@ -10,5 +10,7 @@ const fetchImages = async (imageName, currentPage) => {
     return response.data.hits;
 }
 
-export default { fetchImages, };
+const api = { fetchImages };
+
+export default api;
 

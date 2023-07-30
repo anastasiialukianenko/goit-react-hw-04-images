@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import axios from 'axios';
+import React from "react";
+
 
 import PropTypes from 'prop-types'; 
 import { ImageGalleryItem } from '../ImageGalleryItem/ImageGalleryItem';
