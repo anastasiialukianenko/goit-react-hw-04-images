@@ -1,13 +1,11 @@
 import React, { Component } from "react";
 import { ErrorMassage} from "../Emotion.styled";
 
-export class Error extends Component {
-  render() { 
 
-    return (
+export function Error({children}) {
+  return (
       <ErrorMassage>
-        <h2>{this.props.children}</h2> 
+        <h2>{children}</h2> 
       </ErrorMassage>
     );
-  }
 }

@@ -1,73 +1,39 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types'; 
 import { GalleryItem, GalleryItemImage } from '../Emotion.styled'
 import { Modal } from '../Modal/Modal'
 import 'aos/dist/aos.css'; 
 import AOS from "aos";
 
-export class ImageGalleryItem extends Component {
-static propTypes = {
-          webformatURL: PropTypes.string.isRequired,
-          largeImageURL: PropTypes.string.isRequired,
-          tags: PropTypes.string.isRequired,
-    };
+export function ImageGalleryItem({ webformatURL, largeImageURL, tags }) {
+  
+  const [showModal, setShowModal] = useState(false);
 
-  state = {
-    showModal: false,
-  }
-
-   componentDidMount() {
+  useEffect(() => {
     AOS.init();
-   }
-  
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
+  }, []);
+
+  const toggleModal = () => {
+    setShowModal(!showModal);
   };
-  
 
-  render() {
-   const { webformatURL, largeImageURL, tags } = this.props;
-    const { showModal } = this.state;
-
-    return (
+return (
 <>
-        <GalleryItem data-aos="fade-up" onClick={this.toggleModal}>
+        <GalleryItem data-aos="fade-up" onClick={toggleModal}>
           <GalleryItemImage src={webformatURL} alt={tags} />
         </GalleryItem>
         {showModal && (
-          <Modal onClose={this.toggleModal} src={largeImageURL} alt={tags}/>
+          <Modal onClose={toggleModal} src={largeImageURL} alt={tags}/>
         )}
       </>
-
-
     )
-
 
 }
 
+ImageGalleryItem.propTypes = {
+  webformatURL: PropTypes.string.isRequired,
+  largeImageURL: PropTypes.string.isRequired,
+  tags: PropTypes.string.isRequired,
+};
 
 
- }
-// export const ImageGalleryItem = ({ webformatURL, largeImageURL, tags }) => {
-//   React.useEffect(() => {
-//     AOS.init();
-//   }, []);
-
-//     return (<>
-//    <GalleryItem data-aos="fade-up">
-//         <GalleryItemImage src={webformatURL} alt={tags} />
-//       </GalleryItem>
-      
-//       {showModal && <Modal src={largeImageURL} alt={tags}/>} 
-//     </>)
-  
-    
-// }
-
-// ImageGalleryItem.propTypes = {
-//   webformatURL: PropTypes.string.isRequired,
-//   largeImageURL: PropTypes.string.isRequired,
-//   tags: PropTypes.string.isRequired,
-// };

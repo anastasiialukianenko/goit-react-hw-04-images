@@ -1,35 +1,35 @@
-import React, { Component } from "react";
+import React, { useEffect } from "react";
 import { ModalWrap, Overlay } from "../Emotion.styled";
 
-export class Modal extends Component {
-    componentDidMount() {
-        window.addEventListener('keydown', this.handleKeyDown)
-    }
-    
-    componentWillUnmount() {
-        window.removeEventListener('keydown', this.handleKeyDown)
-    }
+export function Modal({ onClose, src, alt }) {
 
-    handleKeyDown = e => {
+    const handleKeyDown = e => {
         if (e.code === 'Escape') {
-            this.props.onClose();
+            onClose();
         }
-    }
-
-    handleBackdropClick = e => {
-    if (e.currentTarget === e.target) {
-            this.props.onClose();
+    };
+    
+    const handleBackdropClick = e => {
+        if (e.currentTarget === e.target) {
+            onClose();
         }
-    }
+    };
 
-  render() { 
+
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyDown)
+        
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+    };
+}, [])
 
     return (
-        <Overlay onClick={this.handleBackdropClick}>
+        <Overlay onClick={handleBackdropClick}>
             <ModalWrap>
-                <img src={this.props.src} alt={this.props.alt} />
+                <img src={src} alt={alt} />
             </ModalWrap>
         </Overlay>
     );
-  }
+    
 }

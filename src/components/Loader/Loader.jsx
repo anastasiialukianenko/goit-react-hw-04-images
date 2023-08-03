@@ -1,10 +1,8 @@
 import { MutatingDots } from 'react-loader-spinner'
-import React, { Component } from "react";
+import React from "react";
 import { LoaderWrap } from "../Emotion.styled";
 
-export class Loader extends Component {
-  render() { 
-
+export function Loader() {
       return (
         <LoaderWrap> <MutatingDots 
   height="100"
@@ -16,5 +14,5 @@ export class Loader extends Component {
   visible={true}
 /></LoaderWrap>
     );
-  }
+
 }

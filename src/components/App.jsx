@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 
 
 import { Searchbar } from './Searchbar/Searchbar'
@@ -6,28 +6,20 @@ import { ImageGallery } from './ImageGallery/ImageGallery'
 import { GalleryApp } from "./Emotion.styled";
 
 
+export function App() {
+    const [imageName, setImageName] = useState('');
 
-export class App extends Component {
-  state = {
-    imageName: '',
-  };
-
-handleSubmit = (name) => {
+const handleSubmit = (name) => {
     if (name.trim() !== '') {
-      this.setState({
-        imageName: name,
-      });
-    }
+ setImageName(name)
   };
-
-  render() {
-
-     return (
+}
+  return (
        <GalleryApp>
-         <Searchbar onSubmit={this.handleSubmit} />
-         <ImageGallery imageName={this.state.imageName}/>
+         <Searchbar onSubmit={handleSubmit} />
+         <ImageGallery imageName={imageName}/>
 
     </GalleryApp>
   );
-  }
-}
+
+  };
